@@ -16,20 +16,17 @@ public class Cartorio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nome;
 
+    @Column(nullable = false)
     private String endereco;
 
-    @ManyToMany
-    @JoinTable(
-            name = "cartorio_certidao",
-            joinColumns = @JoinColumn(name = "cartorio_id"),
-            inverseJoinColumns = @JoinColumn(name = "certidao_id")
-    )
-    private List<Certidao> certidoes;
+    @ElementCollection
+    private List<String> certidoes;
 
     public void atualizarDados(RequisicaoEdicaoCartorioDTO requisicao) {
-        this.nome = requisicao.getNome();
-        this.endereco = requisicao.getEndereco();
+        this.nome = requisicao.nome();
+        this.endereco = requisicao.endereco();
     }
 }
