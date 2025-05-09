@@ -28,5 +28,6 @@ public class Cartorio {
     public void atualizarDados(RequisicaoEdicaoCartorioDTO requisicao) {
         this.nome = requisicao.nome();
         this.endereco = requisicao.endereco();
+        this.certidoes = requisicao.certidoes();
     }
 }
