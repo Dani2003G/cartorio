@@ -1,10 +1,15 @@
 package br.com.cartorio.mvc.cartorio.cartorio.model;
 
+import br.com.cartorio.mvc.cartorio.cartorio.dto.RequisicaoEdicaoCartorioDTO;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class Cartorio {
 
     @Id
@@ -23,4 +28,8 @@ public class Cartorio {
     )
     private List<Certidao> certidoes;
 
+    public void atualizarDados(RequisicaoEdicaoCartorioDTO requisicao) {
+        this.nome = requisicao.getNome();
+        this.endereco = requisicao.getEndereco();
+    }
 }
