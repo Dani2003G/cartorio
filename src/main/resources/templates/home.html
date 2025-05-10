@@ -3,7 +3,49 @@
 <head th:replace="~{base :: head}">
 </head>
 <body>
+
+<div th:replace="~{base :: logo}"></div>
+
 <div class="container">
+    <h1>Cartórios</h1>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Endereço</th>
+            <th scope="col">Certidões</th>
+            <th scope="col">Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cartorio: ${pagina.content}">
+            <th scope="row" th:text="${cartorio.id}">Id</th>
+            <td th:text="${cartorio.nome}">Nome</td>
+            <td th:text="${cartorio.endereco}">Endereço</td>
+            <td>Certidão</td>
+            <td>
+                <a class="btn btn-danger mr-5">Excluir</a>
+                <a class="btn btn-warning">Editar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <ul class="pagination">
+        <li class="page-item" th:if="${!pagina.first}"><a class="page-link" th:href="@{/home(page=0)}">Primeira</a></li>
+        <li class="page-item" th:if="${pagina.hasPrevious()}"><a class="page-link"
+                                                                 th:href="@{/home(page=${pagina.number - 1})}">Anterior</a>
+        </li>
+        <li class="page-item" th:if="${pagina.hasNext()}"><a class="page-link"
+                                                            th:href="@{/home(page=${pagina.number + 1})}">Próxima</a>
+        </li>
+        <li class="page-item" th:if="${!pagina.last}"><a class="page-link"
+                                                         th:href="@{/home(page=${pagina.totalPages - 1})}">última</a>
+        </li>
+        <li class="page-item" >
+            <a class="page-link" th:text="'Página ' + (${pagina.number + 1}) + ' de ' + ${pagina.totalPages}"></a>
+        </li>
+    </ul>
 
 </div>
 
