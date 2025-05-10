@@ -25,7 +25,7 @@
             <td th:text="${cartorio.endereco}">Endereço</td>
             <td>Certidão</td>
             <td>
-                <a class="btn btn-danger mr-5">Excluir</a>
+                <a class="btn btn-danger mr-5" th:attr="id=${cartorio.id}, nome=${cartorio.nome}" onclick="excluir(this)">Excluir</a>
                 <a class="btn btn-warning">Editar</a>
             </td>
         </tr>
@@ -48,6 +48,23 @@
     </ul>
 
 </div>
+
+<script>
+    function excluir(cartorio) {
+        const id = cartorio.getAttribute("id")
+        const nome = cartorio.getAttribute("nome")
+        if (!confirm(`Tem certeza que deseja excluir o cartório "${nome}"?`)) return;
+        fetch(`/cartorio/${id}`, {
+            method: 'DELETE'
+        }).then(resp => {
+            if (resp.ok) {
+                cartorio.closest('tr').remove()
+            } else {
+                alert("Erro ao excluir categoria.")
+            }
+        })
+    }
+</script>
 
 </body>
 </html>
