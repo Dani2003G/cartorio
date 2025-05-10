@@ -42,4 +42,9 @@ public class CartorioRest {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/buscarPorId")
+    public ResponseEntity buscarPorId(@RequestParam Long id) {
+        return ResponseEntity.ok(service.buscarPorId(id));
+    }
+
 }
