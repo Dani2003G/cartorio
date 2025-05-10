@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}">
+</head>
+<body>
+
+<div th:replace="~{base :: logo}"></div>
+
+<div class="container">
+    <div th:replace="~{base :: titulo('Novo Cartório')}"></div>
+    <div class="card">
+        <div class="card-body">
+            <form th:object="${cartorio}" th:action="@{/cartorio/novo}" method="POST">
+                <div class="form-group">
+                    <label for="nome">Cartório</label>
+                    <input th:field="*{nome}" th:errorclass="is-invalid" class="form-control"
+                           placeholder="nome do Cartório"/>
+                    <small>Informe o nome do cartório.</small>
+                    <div class="invalid-feedback" th:errors="*{nome}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="endereco">Endereço</label>
+                    <input th:field="*{endereco}" th:errorclass="is-invalid" class="form-control"
+                           placeholder="Endereço do cartório"/>
+                    <small>Informe qual é o endereço do cartório.</small>
+                    <div class="invalid-feedback" th:errors="*{endereco}">
+                    </div>
+                </div>
+
+                <!-- Lista de Certidões -->
+                <label for="certidoes">Certidões</label>
+                <div id="certidoesContainer">
+                    <div th:each="certidao, iterStat : ${cartorio.certidoes}">
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-danger" onclick="removerCertidao(this)">Remover
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary" onclick="adicionarCertidao()">Adicionar Certidão</button>
+
+
+                <button class="btn btn-success" type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function adicionarCertidao() {
+        const container = document.getElementById('certidoesContainer');
+        const index = container.children.length;
+
+        const div = document.createElement('div');
+        div.className = 'input-group mb-2';
+        div.innerHTML = `
+            <input name="certidoes[${index}]" class="form-control" placeholder="Tipo da Certidão"/>
+            <div class="input-group-append">
+                <button type="button" class="btn btn-danger" onclick="removerCertidao(this)">Remover</button>
+            </div>
+        `;
+        container.appendChild(div);
+    }
+
+    function removerCertidao(button) {
+        const group = button.closest('.input-group');
+        group.remove();
+
+        // Reindexa os nomes dos inputs após uma remoção
+        const inputs = document.querySelectorAll('#certidoesContainer input[name^="certidoes["]');
+        inputs.forEach((input, idx) => {
+            input.name = `certidoes[${idx}]`;
+        });
+    }
+</script>
+</body>
+</html>
