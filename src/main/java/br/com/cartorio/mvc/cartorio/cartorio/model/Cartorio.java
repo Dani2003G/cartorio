@@ -23,6 +23,7 @@ public class Cartorio {
     private String endereco;
 
     @ElementCollection
+    @CollectionTable(name = "cartorio_certidoes", joinColumns = @JoinColumn(name = "cartorio_id"))
     private List<String> certidoes;
 
     public void atualizarDados(RequisicaoEdicaoCartorioDTO requisicao) {
