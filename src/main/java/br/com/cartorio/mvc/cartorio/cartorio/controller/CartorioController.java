@@ -31,6 +31,8 @@ public class CartorioController {
         if (result.hasErrors()) {
             mv = new ModelAndView("/cartorio/formularioNovo");
             mv.addObject("cartorio", requisicao);
+        } else {
+            service.salvar(requisicao);
         }
         return mv;
     }
