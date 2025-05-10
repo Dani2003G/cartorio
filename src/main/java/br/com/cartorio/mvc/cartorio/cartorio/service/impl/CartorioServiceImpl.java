@@ -46,4 +46,13 @@ public class CartorioServiceImpl implements CartorioService {
     public Page<DadosListagemCartorioDTO> buscarTodos(Pageable paginacao) {
         return repository.findAll(paginacao).map(DadosListagemCartorioDTO::new);
     }
+
+    @Override
+    public RequisicaoEdicaoCartorioDTO buscarPorId(Long id) {
+        Cartorio cartorio = repository.findById(id).orElse(null);
+        if (Objects.isNull(cartorio)) {
+            throw new ServiceException("Cartório informado não cadastrado no banco");
+        }
+        return new RequisicaoEdicaoCartorioDTO(cartorio);
+    }
 }

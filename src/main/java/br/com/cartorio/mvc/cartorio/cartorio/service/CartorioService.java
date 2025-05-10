@@ -15,4 +15,6 @@ public interface CartorioService {
     void deletar(Long id);
 
     Page<DadosListagemCartorioDTO> buscarTodos(Pageable paginacao);
+
+    RequisicaoEdicaoCartorioDTO buscarPorId(Long id);
 }
