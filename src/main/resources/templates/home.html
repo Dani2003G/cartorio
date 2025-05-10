@@ -23,10 +23,10 @@
             <th scope="row" th:text="${cartorio.id}">Id</th>
             <td th:text="${cartorio.nome}">Nome</td>
             <td th:text="${cartorio.endereco}">Endereço</td>
-            <td>Certidão</td>
+            <td th:text="${cartorio.certidoes[0]}">Certidão</td>
             <td>
                 <a class="btn btn-danger mr-5" th:attr="id=${cartorio.id}, nome=${cartorio.nome}" onclick="excluir(this)">Excluir</a>
-                <a class="btn btn-warning">Editar</a>
+                <a class="btn btn-warning" th:href="@{/cartorio/formularioEdicao/{id}(id=${cartorio.id})}">Editar</a>
             </td>
         </tr>
         </tbody>
