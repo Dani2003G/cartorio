@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+
+<div class="container">
+    <h1 class="mt-5">Ocorreu um erro</h1>
+    <p th:if="${erro != 2}">Desculpe, algo deu errado. A página que você está procurando não foi encontrada ou houve um
+        erro no servidor.</p>
+    <div th:if="${erro == 2}">
+        <p th:text="${msg}"></p>
+    </div>
+    <a href="/home" th:href="@{/home}" class="btn btn-primary">Voltar à página inicial</a>
+</div>
+
+</body>
+</html>
